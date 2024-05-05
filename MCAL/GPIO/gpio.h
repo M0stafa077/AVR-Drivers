@@ -68,8 +68,8 @@ typedef enum
 
 typedef struct
 {
-	port_index_t port				:3;
-	pin_index_t pin                 :3;
+	port_index_t port_index			:3;
+	pin_index_t pin_index           :3;
 	direction_t direction           :1;
 	logic_t logic                   :1;
 } pin_config_t;

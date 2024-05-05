@@ -17,7 +17,7 @@
  */
 Std_ReturnType gpio_pin_direction_init(const pin_config_t* _pin_config){ 
     Std_ReturnType ret = E_OK;
-    if(NULL == _pin_config || _pin_config -> pin > PIN_MAX_NUMBER - 1)
+    if(NULL == _pin_config || _pin_config -> pin_index > PIN_MAX_NUMBER - 1)
 	{
         ret = E_NOT_OK;
     }
@@ -26,28 +26,28 @@ Std_ReturnType gpio_pin_direction_init(const pin_config_t* _pin_config){
         switch(_pin_config -> direction)
 		{
             case GPIO_DIRECTION_OUTPUT:
-				switch(_pin_config -> port)
+				switch(_pin_config -> port_index)
 				{
-					case PORTA_INDEX: SET_BIT(DDRA, _pin_config -> pin);
+					case PORTA_INDEX: SET_BIT(DDRA, _pin_config -> pin_index);
 								break;
-					case PORTB_INDEX: SET_BIT(DDRB, _pin_config -> pin);
+					case PORTB_INDEX: SET_BIT(DDRB, _pin_config -> pin_index);
 								break;
-					case PORTC_INDEX: SET_BIT(DDRC, _pin_config -> pin);
+					case PORTC_INDEX: SET_BIT(DDRC, _pin_config -> pin_index);
 								break;
-					case PORTD_INDEX: SET_BIT(DDRD, _pin_config -> pin);
+					case PORTD_INDEX: SET_BIT(DDRD, _pin_config -> pin_index);
 								break;														
 				}
                 break;
             case GPIO_DIRECTION_INPUT:
-				switch(_pin_config -> port)
+				switch(_pin_config -> port_index)
 				{
-					case PORTA_INDEX: CLEAR_BIT(DDRA, _pin_config -> pin);
+					case PORTA_INDEX: CLEAR_BIT(DDRA, _pin_config -> pin_index);
 								break;
-					case PORTB_INDEX: CLEAR_BIT(DDRB, _pin_config -> pin);
+					case PORTB_INDEX: CLEAR_BIT(DDRB, _pin_config -> pin_index);
 								break;
-					case PORTC_INDEX: CLEAR_BIT(DDRC, _pin_config -> pin);
+					case PORTC_INDEX: CLEAR_BIT(DDRC, _pin_config -> pin_index);
 								break;
-					case PORTD_INDEX: CLEAR_BIT(DDRD, _pin_config -> pin);
+					case PORTD_INDEX: CLEAR_BIT(DDRD, _pin_config -> pin_index);
 								break;
 				}
 				break;
@@ -70,25 +70,25 @@ Std_ReturnType gpio_pin_direction_init(const pin_config_t* _pin_config){
  */
 Std_ReturnType gpio_pin_get_direction_status(const pin_config_t* _pin_config, direction_t *dir_status){  
     Std_ReturnType ret = E_OK;
-    if(NULL == _pin_config || (_pin_config -> pin) > PIN_MAX_NUMBER - 1)
+    if(NULL == _pin_config || (_pin_config -> pin_index) > PIN_MAX_NUMBER - 1)
 	{
 	    ret = E_NOT_OK;
     }
     else 
 	{
-		switch(_pin_config -> port)
+		switch(_pin_config -> port_index)
 		{
 			case PORTA_INDEX: 
-				*dir_status = READ_BIT(DDRA, _pin_config -> pin);
+				*dir_status = READ_BIT(DDRA, _pin_config -> pin_index);
 				break;
 			case PORTB_INDEX: 
-				*dir_status = READ_BIT(DDRB, _pin_config -> pin);
+				*dir_status = READ_BIT(DDRB, _pin_config -> pin_index);
 				break;
 			case PORTC_INDEX: 
-				*dir_status = READ_BIT(DDRC, _pin_config -> pin);
+				*dir_status = READ_BIT(DDRC, _pin_config -> pin_index);
 				break;
 			case PORTD_INDEX: 
-				*dir_status = READ_BIT(DDRD, _pin_config -> pin);
+				*dir_status = READ_BIT(DDRD, _pin_config -> pin_index);
 				break;
 		}
     }
@@ -106,7 +106,7 @@ Std_ReturnType gpio_pin_get_direction_status(const pin_config_t* _pin_config, di
  */
 Std_ReturnType gpio_pin_write_logic(const pin_config_t* _pin_config, logic_t logic){
     Std_ReturnType ret = E_OK;
-    if(NULL == _pin_config || (_pin_config -> pin) > PIN_MAX_NUMBER - 1)
+    if(NULL == _pin_config || (_pin_config -> pin_index) > PIN_MAX_NUMBER - 1)
 	{
 	    ret = E_NOT_OK;
     }
@@ -115,36 +115,36 @@ Std_ReturnType gpio_pin_write_logic(const pin_config_t* _pin_config, logic_t log
 	    switch(logic)
 		{
 		    case STD_HIGH:
-				switch(_pin_config -> port)
+				switch(_pin_config -> port_index)
 				{
 					case PORTA_INDEX: 
-						SET_BIT(PORTA, _pin_config -> pin);
+						SET_BIT(PORTA, _pin_config -> pin_index);
 						break;
 					case PORTB_INDEX: 
-						SET_BIT(PORTB, _pin_config -> pin);
+						SET_BIT(PORTB, _pin_config -> pin_index);
 						break;
 					case PORTC_INDEX: 
-						SET_BIT(PORTC, _pin_config -> pin);
+						SET_BIT(PORTC, _pin_config -> pin_index);
 						break;
 					case PORTD_INDEX: 
-						SET_BIT(PORTD, _pin_config -> pin);
+						SET_BIT(PORTD, _pin_config -> pin_index);
 						break;
 				}
 				break;
 		    case STD_LOW:
-				switch(_pin_config -> port)
+				switch(_pin_config -> port_index)
 				{
 					case PORTA_INDEX:
-						CLEAR_BIT(PORTA, _pin_config -> pin);
+						CLEAR_BIT(PORTA, _pin_config -> pin_index);
 						break;
 					case PORTB_INDEX:
-						CLEAR_BIT(PORTB, _pin_config -> pin);
+						CLEAR_BIT(PORTB, _pin_config -> pin_index);
 						break;
 					case PORTC_INDEX:
-						CLEAR_BIT(PORTC, _pin_config -> pin);
+						CLEAR_BIT(PORTC, _pin_config -> pin_index);
 						break;
 					case PORTD_INDEX:
-						CLEAR_BIT(PORTD, _pin_config -> pin);
+						CLEAR_BIT(PORTD, _pin_config -> pin_index);
 						break;
 				}
 				break;
@@ -167,25 +167,25 @@ Std_ReturnType gpio_pin_write_logic(const pin_config_t* _pin_config, logic_t log
  */
 Std_ReturnType gpio_pin_read_logic(const pin_config_t* _pin_config, uint8_t *logic){
     Std_ReturnType ret = E_OK;
-    if(NULL == _pin_config || _pin_config -> pin > PIN_MAX_NUMBER - 1 || NULL == logic)
+    if(NULL == _pin_config || _pin_config -> pin_index > PIN_MAX_NUMBER - 1 || NULL == logic)
     {
 	    ret = E_NOT_OK;
     } 
 	else
     {
-		switch(_pin_config -> port)
+		switch(_pin_config -> port_index)
 		{
 			case PORTA_INDEX:
-				*logic = READ_BIT(PORTA, _pin_config -> pin);
+				*logic = READ_BIT(PINA, _pin_config -> pin_index);
 				break;
 			case PORTB_INDEX:
-				*logic = READ_BIT(PORTB, _pin_config -> pin);
+				*logic = READ_BIT(PINB, _pin_config -> pin_index);
 				break;
 			case PORTC_INDEX:
-				*logic = READ_BIT(PORTC, _pin_config -> pin);
+				*logic = READ_BIT(PINC, _pin_config -> pin_index);
 				break;
 			case PORTD_INDEX:
-				*logic = READ_BIT(PORTD, _pin_config -> pin);
+				*logic = READ_BIT(PIND, _pin_config -> pin_index);
 				break;
 			default:
 				ret = E_NOT_OK;
@@ -205,25 +205,25 @@ Std_ReturnType gpio_pin_read_logic(const pin_config_t* _pin_config, uint8_t *log
 Std_ReturnType gpio_pin_toggle_logic(const pin_config_t* _pin_config)
 {
     Std_ReturnType ret = E_OK;
-    if(NULL == _pin_config || (_pin_config -> pin) > PIN_MAX_NUMBER - 1 )
+    if(NULL == _pin_config || (_pin_config -> pin_index) > PIN_MAX_NUMBER - 1 )
 	{
 	    ret = E_NOT_OK;
 	} 
 	else
 	{
-	    switch(_pin_config -> port)
+	    switch(_pin_config -> port_index)
 	    {
 		    case PORTA_INDEX:
-				TOGGLE_BIT(PORTA, _pin_config -> pin);
+				TOGGLE_BIT(PORTA, _pin_config -> pin_index);
 				break;
 		    case PORTB_INDEX:
-				TOGGLE_BIT(PORTB, _pin_config -> pin);
+				TOGGLE_BIT(PORTB, _pin_config -> pin_index);
 				break;
 		    case PORTC_INDEX:
-				TOGGLE_BIT(PORTC, _pin_config -> pin);
+				TOGGLE_BIT(PORTC, _pin_config -> pin_index);
 				break;
 		    case PORTD_INDEX:
-				TOGGLE_BIT(PORTD, _pin_config -> pin);
+				TOGGLE_BIT(PORTD, _pin_config -> pin_index);
 				break;
 	    }
     }
@@ -240,7 +240,7 @@ Std_ReturnType gpio_pin_toggle_logic(const pin_config_t* _pin_config)
 Std_ReturnType gpio_pin_initialize(const pin_config_t* _pin_config)
 {
     Std_ReturnType ret = E_OK;
-    if(NULL == _pin_config || (_pin_config -> pin) > PIN_MAX_NUMBER - 1)
+    if(NULL == _pin_config || (_pin_config -> pin_index) > PIN_MAX_NUMBER - 1)
     {
 	    ret = E_NOT_OK;
     }
