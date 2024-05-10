@@ -118,11 +118,13 @@ Std_ReturnType lcd_4bit_send_char_data(const lcd_4bit_t* _lcd, uint8_t data)
  */
 Std_ReturnType lcd_4bit_send_char_data_pos(const lcd_4bit_t* _lcd, uint8_t row, uint8_t column, uint8_t data)
 {
-        Std_ReturnType ret =E_OK;
-    if(NULL == _lcd){
+    Std_ReturnType ret =E_OK;
+    if(NULL == _lcd)
+	{
         ret = E_NOT_OK;
     }
-    else {
+    else 
+	{
         ret = lcd_4bit_set_cursor(_lcd, row, column);
         ret = lcd_4bit_send_char_data(_lcd, data);
     }
@@ -194,15 +196,21 @@ Std_ReturnType lcd_4bit_send_string_pos(const lcd_4bit_t* _lcd, uint8_t row, uin
  *          (E_NOT_OK) : The function has issue to perform this action
  */
 Std_ReturnType lcd_4bit_send_custom_char(const lcd_4bit_t* _lcd, uint8_t row, uint8_t column, 
-                                         const uint8_t _char[], uint8_t memory_pos){
-        Std_ReturnType ret = E_OK;
+                                         const uint8_t _char[], uint8_t memory_pos)
+{
+    Std_ReturnType ret = E_OK;
     if(NULL == _lcd)
 	{
         ret = E_NOT_OK;
     }
     else 
 	{
-       
+        ret = lcd_4bit_send_command(_lcd, (LCD_CGRAM_START + (memory_pos * 8)));
+        for(uint8_t lcd_counter = 0; lcd_counter <= 7; ++lcd_counter)
+		{
+	        ret = lcd_4bit_send_char_data(_lcd, _char[lcd_counter]);
+        }
+        ret = lcd_4bit_send_char_data_pos(_lcd, row, column, memory_pos);
     }
    return ret;
 }
