@@ -9,19 +9,21 @@
 #ifndef MCAL_STD_TYPES_H_
 #define MCAL_STD_TYPES_H_
 
+#ifndef F_CPU
+#define F_CPU				8000000U
+#include "util/delay.h"
+#endif
 
-/* Data-type Declarations: */
-typedef unsigned char   uint8_t;
-typedef unsigned int    uint16_t;
-typedef unsigned long   uint32_t;
+typedef unsigned char		uint8_t;
+typedef unsigned int		uint16_t;
+typedef unsigned long		uint32_t;
 
-typedef signed char     sint8_t;
-typedef signed short    sint16_t;
-typedef signed long     sint32_t;
+typedef signed char			sint8_t;
+typedef signed short		sint16_t;
+typedef signed long			sint32_t;
 
-typedef uint8_t         Std_ReturnType;
+typedef uint8_t				Std_ReturnType;
 
-/* Macros Declaration */
 #define STD_TRUE            (1U)
 #define STD_FALSE           (0U)
 
