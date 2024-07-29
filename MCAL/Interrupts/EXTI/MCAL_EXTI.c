@@ -35,6 +35,7 @@ Std_ReturnType EXTI_init(const EXTI_t* obj)
 				/* 1. Disable INT0 interrupts  */
 				EXTI_INT0_INTERRUPT_DISABLE();
 				exti_pin.port_index=PORTD_INDEX, exti_pin.pin_index=PIN2_INDEX, exti_pin.direction=GPIO_DIRECTION_INPUT;
+				exti_pin.logic = STD_LOW;
 				/* 2. Initialize the DIO pin */
 				ret = gpio_pin_initialize(&exti_pin);
 				/* 3. Configure the interruption source */
@@ -58,6 +59,7 @@ Std_ReturnType EXTI_init(const EXTI_t* obj)
 				/* 1. Disable INT0 interrupts  */
 				EXTI_INT1_INTERRUPT_DISABLE();
 				exti_pin.port_index=PORTD_INDEX, exti_pin.pin_index=PIN3_INDEX, exti_pin.direction=GPIO_DIRECTION_INPUT;
+				exti_pin.logic = STD_LOW;
 				/* 2. Initialize the DIO pin */
 				ret = gpio_pin_initialize(&exti_pin);
 				/* 3. Configure the interruption source */
@@ -81,10 +83,11 @@ Std_ReturnType EXTI_init(const EXTI_t* obj)
 				/* 1. Disable INT2 interrupts  */
 				EXTI_INT2_INTERRUPT_DISABLE();
 				exti_pin.port_index=PORTB_INDEX, exti_pin.pin_index=PIN2_INDEX, exti_pin.direction=GPIO_DIRECTION_INPUT;
+				exti_pin.logic = STD_LOW;
 				/* 1. Initialize the DIO pin */
 				ret = gpio_pin_initialize(&exti_pin);
 				/* 2. Configure the interruption source */
-				if(obj->interrupt_source != 2 || obj->interrupt_source != 3)	/* INT2 is edge triggered only */
+				if(obj->interrupt_source != 2 && obj->interrupt_source != 3)	/* INT2 is edge triggered only */
 				{
 					ret = E_NOT_OK;
 					goto end;
